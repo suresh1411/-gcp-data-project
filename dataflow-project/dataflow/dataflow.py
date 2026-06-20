@@ -6,6 +6,8 @@ class ParseData(beam.DoFn):
     def process(self, element):
         record = json.loads(element)
         record["total_amount"] = record["price"] * record["quantity"]
+        record["discount"] = record["total_amount"] * 0.1
+        record["final_amount"] = record["total_amount"] - record["discount"]
         yield record
 
 options = PipelineOptions(
